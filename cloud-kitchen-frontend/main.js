@@ -10,7 +10,8 @@ import QRCode from 'qrcode';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const API_BASE = '/api';
+const rawApiUrl = (import.meta.env.VITE_API_BASE_URL || '').trim();
+const API_BASE = rawApiUrl ? (rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/$/, '')}/api`) : '/api';
 
 // ─── Kitchen Origin Location (Loaded from LocalStorage or Default Mumbai HQ) ───
 const DEFAULT_KITCHEN = {

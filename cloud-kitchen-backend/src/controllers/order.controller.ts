@@ -102,7 +102,7 @@ Our kitchen has sealed your handi at 140°C. Delivery rider ${order.driverName} 
 
 export async function trackOrderController(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const order = await getOrderTracking(id);
     res.json({ order });
   } catch (error: any) {
@@ -121,7 +121,7 @@ export async function getAllOrdersController(req: Request, res: Response) {
 
 export async function updateOrderStatusController(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { status } = req.body;
     if (!status) {
       return res.status(400).json({ message: "Status is required" });

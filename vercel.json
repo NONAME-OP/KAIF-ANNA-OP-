@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd cloud-kitchen-frontend && npm install && npm run build",
+  "outputDirectory": "cloud-kitchen-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

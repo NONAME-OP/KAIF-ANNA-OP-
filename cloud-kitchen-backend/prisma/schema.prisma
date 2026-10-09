@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String         @id @default(uuid())
+  name                   String
+  email                  String         @unique
+  passwordHash           String
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime       @updatedAt
+  resetPasswordExpiresAt DateTime?
+  resetPasswordToken     String?
+  refreshTokens          RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  imageUrl    String?
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  customerName    String
+  customerPhone   String
+  customerAddress String
+  deliveryLat     Float
+  deliveryLng     Float
+  distanceKm      Float
+  subtotal        Decimal     @db.Decimal(10, 2)
+  deliveryFee     Decimal     @db.Decimal(10, 2)
+  totalAmount     Decimal     @db.Decimal(10, 2)
+  paymentStatus   String      @default("PENDING") // PENDING, PAID, FAILED
+  paymentMethod   String      @default("UPI")
+  transactionId   String?
+  orderStatus     String      @default("PREPARING") // PREPARING, HANDI_SEALED, OUT_FOR_DELIVERY, DELIVERED
+  driverName      String?     @default("Aakash Sharma")
+  driverPhone     String?     @default("+919876543210")
+  driverVehicle   String?     @default("MH 02 CP 4921")
+  driverLat       Float?
+  driverLng       Float?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String?
+  name      String
+  price     Decimal @db.Decimal(10, 2)
+  quantity  Int     @default(1)
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}

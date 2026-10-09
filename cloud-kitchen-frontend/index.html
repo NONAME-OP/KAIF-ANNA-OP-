@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaif's Cloud Kitchen — High Performance Gourmet Indian Cuisine</title>
+  <meta name="description" content="Wildly delicious. Ridiculously fast. Gourmet Awadhi & Indian cloud dining delivered in sealed terracotta handis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Leaflet Map Styles -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="gsap-theme">
+  <!-- ═══════ TOP SCROLL PROGRESS BAR ═══════ -->
+  <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+
+  <!-- ═══════ HEADER / NAVBAR ═══════ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <div class="logo-box">
+          <span class="logo-symbol">⚡</span>
+        </div>
+        <span class="logo-text">KAIF<span class="logo-dot">.</span>KITCHEN</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#signatures" class="nav-link" data-section="signatures">Signatures</a>
+        <a href="#menu" class="nav-link" data-section="menu">Menu</a>
+        <a href="#craft" class="nav-link" data-section="craft">Engine</a>
+        <a href="#reviews" class="nav-link" data-section="reviews">Reviews</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost" id="btn-kitchen-settings" title="Connect Maps & Restaurant Location" style="font-size:0.8rem;padding:0.4rem 0.8rem;">
+          <span>📍 Kitchen HQ</span>
+        </button>
+        <button class="btn btn-ghost" id="btn-admin-panel" title="Admin Operations & Orders Control" style="font-size:0.8rem;padding:0.4rem 0.8rem;color:var(--color-shockingly-green);">
+          <span>🛡️ Admin</span>
+        </button>
+        <button class="nav-cart-btn" id="nav-cart-btn" aria-label="Open Cart">
+          <span class="cart-label">Bag</span>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+
+        <button class="btn btn-ghost" id="btn-signin">Sign In</button>
+        <button class="btn btn-green-fill" id="btn-signup">Join Club</button>
+
+        <div class="nav-user-info" id="nav-user-info" style="display:none;">
+          <span class="user-greeting" id="user-greeting"></span>
+          <button class="btn btn-ghost btn-sm" id="btn-logout">Logout</button>
+        </div>
+
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay Navigation -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <div class="nav-logo">
+        <div class="logo-box"><span class="logo-symbol">⚡</span></div>
+        <span class="logo-text">KAIF<span class="logo-dot">.</span>KITCHEN</span>
+      </div>
+      <button class="mobile-drawer-close" id="mobile-drawer-close">&times;</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="#home" class="mobile-link">Home</a>
+      <a href="#signatures" class="mobile-link">Signature Dishes</a>
+      <a href="#menu" class="mobile-link">Gourmet Menu</a>
+      <a href="#craft" class="mobile-link">Kitchen Engine</a>
+      <a href="#reviews" class="mobile-link">Testimonials</a>
+    </div>
+    <div class="mobile-drawer-actions">
+      <button class="btn btn-ghost-stroke btn-full" id="mobile-btn-kitchen-settings" style="margin-bottom:0.8rem;">📍 Kitchen HQ Location &amp; UPI</button>
+      <button class="btn btn-green-fill btn-full" id="mobile-btn-signin">Sign In / Register</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- ═══════ HERO SECTION (GSAP KINETIC TYPOGRAPHY) ═══════ -->
+    <section class="hero-section" id="home">
+      <div class="container">
+        <div class="hero-badge-wrap">
+          <div class="hero-pill-badge">
+            <span class="pill-dot"></span>
+            <span class="pill-text">CLOUD KITCHEN 3.0 &bull; LIVE IN MUMBAI</span>
+          </div>
+        </div>
+
+        <!-- Kinetic Typography Headline -->
+        <h1 class="hero-headline" id="hero-headline">
+          <div class="headline-mask">
+            <span class="word-split text-reveal">WILDLY</span>
+            <span class="word-split text-reveal">DELICIOUS.</span>
+          </div>
+          <div class="headline-mask">
+            <span class="word-split text-reveal text-gradient-green">RIDICULOUSLY</span>
+            <span class="word-split text-reveal text-gradient-green">FAST.</span>
+          </div>
+        </h1>
+
+        <p class="hero-lead text-reveal-lead">
+          The new benchmark in gourmet Indian cloud dining. Slow-cooked Awadhi Dum Pukht,
+          charcoal-fired tandoor, and single-estate spices dispatched in sealed clay handis within 30 minutes.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#menu" class="btn btn-green-fill btn-lg">
+            <span>Explore Menu</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#craft" class="btn btn-ghost-stroke btn-lg">
+            <span>Culinary Specs</span>
+          </a>
+        </div>
+
+        <!-- GSAP-style Live Interactive Scrubber Playground -->
+        <div class="interactive-stage">
+          <div class="stage-header">
+            <div class="stage-tabs">
+              <span class="stage-tab active" data-dish="biryani">Royal Dum Biryani</span>
+              <span class="stage-tab" data-dish="dal">Dal Bukhara (18h)</span>
+              <span class="stage-tab" data-dish="paneer">Smoked Paneer Angara</span>
+            </div>
+            <div class="stage-status">
+              <span class="status-live-indicator"></span>
+              <span id="stage-status-text">Handi Temp: 74°C &bull; Dum Steam Sealed</span>
+            </div>
+          </div>
+
+          <div class="stage-canvas-wrap">
+            <div class="stage-dish-card">
+              <div class="stage-dish-visual">
+                <img src="/biryani.jpg" alt="Signature Dish" id="stage-dish-img" class="stage-img" />
+                <div class="stage-overlay-glow"></div>
+              </div>
+              <div class="stage-dish-details">
+                <div class="stage-code-badge">RECIPE // AWADHI-01</div>
+                <h3 id="stage-dish-title">Royal Hyderabadi Dum Biryani</h3>
+                <p id="stage-dish-desc">Aged Daawat basmati layered with tender saffron-steeped cuts, sealed with whole wheat dough on babool charcoal embers.</p>
+                
+                <div class="stage-metrics-row">
+                  <div class="metric-box">
+                    <span class="metric-num">18h</span>
+                    <span class="metric-label">Slow Dum</span>
+                  </div>
+                  <div class="metric-box">
+                    <span class="metric-num">100%</span>
+                    <span class="metric-label">Clay Handi</span>
+                  </div>
+                  <div class="metric-box">
+                    <span class="metric-num">A2</span>
+                    <span class="metric-label">Desi Ghee</span>
+                  </div>
+                </div>
+
+                <div class="stage-action-row">
+                  <span class="stage-price" id="stage-dish-price">₹349</span>
+                  <button class="btn btn-green-fill btn-sm btn-quick-add" id="stage-add-btn" data-id="biryani" data-name="Royal Hyderabadi Dum Biryani" data-price="349" data-img="/biryani.jpg">
+                    + Quick Add to Bag
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Scrubber Control -->
+          <div class="stage-scrubber-bar">
+            <span class="scrub-label">DUM PUKHT TIMELINE</span>
+            <input type="range" min="0" max="100" value="75" class="scrub-slider" id="stage-scrubber" />
+            <span class="scrub-val" id="stage-scrub-val">Stage 3/4 &bull; Peak Infusion</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ METRIC TICKER ═══════ -->
+    <section class="ticker-section">
+      <div class="ticker-wrap">
+        <div class="ticker-item"><span>⚡ 30-MIN DISPATCH</span></div>
+        <div class="ticker-item"><span>🏺 100% TERRACOTTA HANDI</span></div>
+        <div class="ticker-item"><span>🌿 PURE SINGLE-ESTATE SPICES</span></div>
+        <div class="ticker-item"><span>🔥 ZERO MICROWAVES</span></div>
+        <div class="ticker-item"><span>★ 4.9/5 GOURMET RATING</span></div>
+        <div class="ticker-item"><span>🛡️ FSSAI CERTIFIED HYGIENE</span></div>
+        <!-- Duplicated for seamless loop -->
+        <div class="ticker-item"><span>⚡ 30-MIN DISPATCH</span></div>
+        <div class="ticker-item"><span>🏺 100% TERRACOTTA HANDI</span></div>
+        <div class="ticker-item"><span>🌿 PURE SINGLE-ESTATE SPICES</span></div>
+        <div class="ticker-item"><span>🔥 ZERO MICROWAVES</span></div>
+        <div class="ticker-item"><span>★ 4.9/5 GOURMET RATING</span></div>
+        <div class="ticker-item"><span>🛡️ FSSAI CERTIFIED HYGIENE</span></div>
+      </div>
+    </section>
+
+    <!-- ═══════ SIGNATURES SHOWCASE ═══════ -->
+    <section class="section signatures-section" id="signatures">
+      <div class="container">
+        <div class="section-title-bar">
+          <div>
+            <div class="section-tag">// MASTERPIECES</div>
+            <h2 class="section-heading text-reveal-heading">Signature <span class="text-gradient-green">Showcase</span></h2>
+          </div>
+          <div class="slider-arrows">
+            <button class="arrow-btn" id="sig-prev" aria-label="Previous">&larr;</button>
+            <button class="arrow-btn" id="sig-next" aria-label="Next">&rarr;</button>
+          </div>
+        </div>
+
+        <div class="signatures-track-wrap">
+          <div class="signatures-track" id="signatures-track">
+            <!-- Card 1 -->
+            <div class="sig-card">
+              <div class="sig-img-wrap">
+                <img src="/biryani.jpg" alt="Dum Biryani" loading="lazy" />
+                <span class="sig-badge">Bestseller</span>
+              </div>
+              <div class="sig-body">
+                <div class="sig-meta">
+                  <span class="diet-tag non-veg">Non-Veg</span>
+                  <span class="prep-time">18-hr Dum</span>
+                </div>
+                <h3>Royal Hyderabadi Dum Biryani</h3>
+                <p>Fragrant basmati rice layered with succulent saffron-infused cuts, slow-steamed in an earthen handi.</p>
+                <div class="sig-footer">
+                  <span class="sig-price">₹349</span>
+                  <button class="btn btn-green-outline btn-sm btn-quick-add" data-id="biryani" data-name="Royal Hyderabadi Dum Biryani" data-price="349" data-img="/biryani.jpg">+ Add</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="sig-card">
+              <div class="sig-img-wrap">
+                <img src="/paneer_tikka.jpg" alt="Paneer Tikka" loading="lazy" />
+                <span class="sig-badge green">Clay Tandoor</span>
+              </div>
+              <div class="sig-body">
+                <div class="sig-meta">
+                  <span class="diet-tag veg">Veg</span>
+                  <span class="prep-time">Babool Embers</span>
+                </div>
+                <h3>Smoked Paneer Tikka Angara</h3>
+                <p>Artisanal malai paneer soaked in mustard oil, roasted cumin, and Kashmiri mirch, char-grilled to order.</p>
+                <div class="sig-footer">
+                  <span class="sig-price">₹289</span>
+                  <button class="btn btn-green-outline btn-sm btn-quick-add" data-id="paneer" data-name="Smoked Paneer Tikka Angara" data-price="289" data-img="/paneer_tikka.jpg">+ Add</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="sig-card">
+              <div class="sig-img-wrap">
+                <img src="/dal_makhani.jpg" alt="Dal Makhani" loading="lazy" />
+                <span class="sig-badge">Overnight Coal</span>
+              </div>
+              <div class="sig-body">
+                <div class="sig-meta">
+                  <span class="diet-tag veg">Veg</span>
+                  <span class="prep-time">18-hr Simmer</span>
+                </div>
+                <h3>Dal Makhani Bukhara</h3>
+                <p>Black urad lentils simmered overnight with fresh white butter, organic tomato reduction, and kasuri methi.</p>
+                <div class="sig-footer">
+                  <span class="sig-price">₹249</span>
+                  <button class="btn btn-green-outline btn-sm btn-quick-add" data-id="dal" data-name="Dal Makhani Bukhara" data-price="249" data-img="/dal_makhani.jpg">+ Add</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="sig-card">
+              <div class="sig-img-wrap">
+                <img src="/masala_dosa.jpg" alt="Masala Dosa" loading="lazy" />
+                <span class="sig-badge green">Heirloom</span>
+              </div>
+              <div class="sig-body">
+                <div class="sig-meta">
+                  <span class="diet-tag veg">Veg</span>
+                  <span class="prep-time">A2 Ghee</span>
+                </div>
+                <h3>Crispy Ghee Podi Masala Dosa</h3>
+                <p>Golden fermented rice crepe crisped with desi ghee, dusted with spicy gun-powder podi and spiced potatoes.</p>
+                <div class="sig-footer">
+                  <span class="sig-price">₹189</span>
+                  <button class="btn btn-green-outline btn-sm btn-quick-add" data-id="dosa" data-name="Crispy Ghee Podi Masala Dosa" data-price="189" data-img="/masala_dosa.jpg">+ Add</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="sig-card">
+              <div class="sig-img-wrap">
+                <img src="/gulab_jamun.jpg" alt="Gulab Jamun" loading="lazy" />
+                <span class="sig-badge">Heritage</span>
+              </div>
+              <div class="sig-body">
+                <div class="sig-meta">
+                  <span class="diet-tag veg">Veg</span>
+                  <span class="prep-time">Kashmiri Saffron</span>
+                </div>
+                <h3>Shahi Gulab Jamun with Saffron</h3>
+                <p>Warm mawa dumplings soaked in green cardamom and pure Kashmiri saffron syrup, topped with pistachio.</p>
+                <div class="sig-footer">
+                  <span class="sig-price">₹149</span>
+                  <button class="btn btn-green-outline btn-sm btn-quick-add" data-id="jamun" data-name="Shahi Gulab Jamun with Saffron" data-price="149" data-img="/gulab_jamun.jpg">+ Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ FULL MENU CATALOG ═══════ -->
+    <section class="section menu-section" id="menu">
+      <div class="container">
+        <div class="section-title-bar">
+          <div>
+            <div class="section-tag">// COMPLETE CATALOG</div>
+            <h2 class="section-heading text-reveal-heading">Gourmet <span class="text-gradient-green">Menu</span></h2>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="menu-search" placeholder="Search dishes, ingredients..." />
+            <button class="search-clear" id="clear-search" style="display:none;">&times;</button>
+          </div>
+        </div>
+
+        <!-- ═══════ SWIGGY-STYLE OFFERS CAROUSEL STRIP ═══════ -->
+        <div class="swiggy-offers-strip" id="swiggy-offers-strip">
+          <div class="swiggy-offers-scroll">
+            <div class="swiggy-offer-card" data-code="FEAST50">
+              <div class="offer-badge red">50% OFF</div>
+              <div class="offer-info">
+                <h4>UP TO ₹150 OFF</h4>
+                <p>Use code <span class="offer-code">FEAST50</span> &bull; Min ₹299</p>
+              </div>
+              <button type="button" class="btn-copy-offer" data-code="FEAST50">APPLY</button>
+            </div>
+            <div class="swiggy-offer-card" data-code="KAIF100">
+              <div class="offer-badge gold">FLAT ₹100</div>
+              <div class="offer-info">
+                <h4>₹100 SAVINGS</h4>
+                <p>Use code <span class="offer-code">KAIF100</span> &bull; Min ₹499</p>
+              </div>
+              <button type="button" class="btn-copy-offer" data-code="KAIF100">APPLY</button>
+            </div>
+            <div class="swiggy-offer-card" data-code="FREEDEL">
+              <div class="offer-badge green">EXPRESS</div>
+              <div class="offer-info">
+                <h4>FREE DELIVERY</h4>
+                <p>Use code <span class="offer-code">FREEDEL</span></p>
+              </div>
+              <button type="button" class="btn-copy-offer" data-code="FREEDEL">APPLY</button>
+            </div>
+            <div class="swiggy-offer-card" data-code="SWIGGY60">
+              <div class="offer-badge orange">60% OFF</div>
+              <div class="offer-info">
+                <h4>GOURMET CLUB</h4>
+                <p>Use code <span class="offer-code">SWIGGY60</span> &bull; Min ₹199</p>
+              </div>
+              <button type="button" class="btn-copy-offer" data-code="SWIGGY60">APPLY</button>
+            </div>
+            <div class="swiggy-offer-card" data-code="ROYAL20">
+              <div class="offer-badge purple">20% OFF</div>
+              <div class="offer-info">
+                <h4>ROYAL DINING</h4>
+                <p>Use code <span class="offer-code">ROYAL20</span> &bull; Min ₹399</p>
+              </div>
+              <button type="button" class="btn-copy-offer" data-code="ROYAL20">APPLY</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Pill Tabs (Swiggy Categories) -->
+        <div class="filter-pills-row" id="menu-filters">
+          <button class="filter-pill active" data-filter="all">🥘 All Dishes</button>
+          <button class="filter-pill" data-filter="biryani">🍚 Biryani &amp; Rice</button>
+          <button class="filter-pill" data-filter="tandoor">🍢 Tandoor Starters</button>
+          <button class="filter-pill" data-filter="curry">🍲 Slow Curries</button>
+          <button class="filter-pill" data-filter="dessert">🍨 Desserts</button>
+          <button class="filter-pill" data-filter="veg">🌱 Pure Veg</button>
+          <button class="filter-pill" data-filter="available">⚡ Available Now</button>
+        </div>
+
+        <!-- Menu Cards Grid -->
+        <div class="menu-grid" id="menu-grid">
+          <div class="menu-loader" id="menu-loading">
+            <div class="spinner"></div>
+            <p>Fetching menu from database...</p>
+          </div>
+        </div>
+
+        <div class="menu-empty" id="menu-empty" style="display:none;">
+          <p>No dishes matched your query. Try resetting filters.</p>
+          <button class="btn btn-green-outline btn-sm" id="btn-reset-filters">Reset Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ BENTO GRID: KITCHEN ENGINE & SPECS ═══════ -->
+    <section class="section craft-section" id="craft">
+      <div class="container">
+        <div class="section-tag">// ARCHITECTURE</div>
+        <h2 class="section-heading text-reveal-heading">Engineered for <span class="text-gradient-green">Culinary Perfection</span></h2>
+        <p class="section-sub">Four core operational principles powering every single delivery.</p>
+
+        <div class="bento-grid">
+          <div class="bento-card bento-wide">
+            <div class="bento-tag">01 // HEAT PRESERVATION</div>
+            <h3>140°C Sealed Earthen Terracotta</h3>
+            <p>Zero plastic containers. Each portion is cooked and sealed inside heavy terracotta handis with whole wheat dough, ensuring maximum moisture retention and authentic earthiness.</p>
+            <div class="bento-stat">
+              <span class="stat-number">68°C</span>
+              <span class="stat-desc">Guaranteed doorstep temperature</span>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-tag">02 // MASALAS</div>
+            <h3>Granite Stone-Ground Spices</h3>
+            <p>Single-estate Kashmiri Mongra saffron, Idukki green cardamom, and Tellicherry black pepper roasted fresh every dawn.</p>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-tag">03 // DUM PUKHT</div>
+            <h3>18-Hour Slow Charcoal Coal</h3>
+            <p>Slow cooking releases deep marrow and grain aromas that no industrial pressure cooker can replicate.</p>
+          </div>
+
+          <div class="bento-card bento-wide">
+            <div class="bento-tag">04 // DISPATCH LOGISTICS</div>
+            <h3>Sub-30 Minute Express Pods</h3>
+            <p>Dedicated hyper-local dispatch pods mapped across Mumbai. Packaged within 3 minutes of leaving the live coal fire.</p>
+            <div class="bento-stat">
+              <span class="stat-number">28m</span>
+              <span class="stat-desc">Average transit time in Bandra &amp; South Mumbai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ REVIEWS ═══════ -->
+    <section class="section reviews-section" id="reviews">
+      <div class="container">
+        <div class="section-tag">// TESTIMONIALS</div>
+        <h2 class="section-heading text-reveal-heading">Loved by <span class="text-gradient-green">Food Critics &amp; Foodies</span></h2>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"The Dal Makhani Bukhara and Hyderabadi Dum Biryani set a standard that rival 5-star hotel dining rooms. The earthen handi aroma is breathtaking."</p>
+            <div class="reviewer-info">
+              <strong>Kabir Mehta</strong>
+              <span>Food Editor, Mumbai Gourmet</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"Delivered steaming hot at 11:30 PM in Bandra. You can genuinely taste the Gir cow A2 ghee and stone-ground spices. Instant repeat customer."</p>
+            <div class="reviewer-info">
+              <strong>Ananya Sen</strong>
+              <span>Verified Gourmet Member</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>"The charcoal smoke on the Paneer Tikka Angara is authentic. No artificial flavoring, just raw mastery of the clay tandoor."</p>
+            <div class="reviewer-info">
+              <strong>Rohan Joshi</strong>
+              <span>Culinary Enthusiast</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="logo-box">
+          <span class="logo-symbol">⚡</span>
+        </div>
+        <span class="logo-text">KAIF<span class="logo-dot">.</span>KITCHEN</span>
+        <p class="footer-note">High performance cloud dining. Crafted with passion, delivered with speed.</p>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <a href="#home">Home</a>
+        <a href="#signatures">Signatures</a>
+        <a href="#menu">Menu</a>
+        <a href="#craft">Kitchen Engine</a>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">FSSAI Lic. #11524007000189</a>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Kitchen HQ</h4>
+        <p>Bandra West, Mumbai 400050</p>
+        <p>Concierge: +91 (022) 2650-8900</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Kaif's Cloud Kitchen. All culinary rights reserved.</p>
+      <span class="footer-badge">Built with GSAP &amp; Lenis</span>
+    </div>
+  </footer>
+
+  <!-- ═══════ MOBILE QUICK-CART BAR (STICKY BOTTOM) ═══════ -->
+  <div class="mobile-cart-bar" id="mobile-cart-bar" style="display:none;">
+    <div class="mobile-cart-info">
+      <span class="mobile-cart-qty" id="mobile-cart-qty">0 ITEMS</span>
+      <span class="mobile-cart-total" id="mobile-cart-total">₹0</span>
+    </div>
+    <button class="btn btn-green-fill btn-sm" id="mobile-cart-btn">
+      <span>View Bag &amp; Checkout</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <!-- ═══════ CART SLIDE-OVER DRAWER ═══════ -->
+  <div class="cart-overlay" id="cart-drawer-overlay">
+    <div class="cart-drawer" id="cart-drawer">
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <h3>Feast Bag</h3>
+          <span class="drawer-count" id="cart-items-count">0 items</span>
+        </div>
+        <button class="drawer-close" id="cart-close-btn" aria-label="Close Bag">&times;</button>
+      </div>
+
+      <!-- Free Delivery Progress -->
+      <div class="delivery-bar-wrap">
+        <div class="delivery-text" id="delivery-progress-text">Add ₹151 more for <strong>Free Express Delivery</strong></div>
+        <div class="delivery-track">
+          <div class="delivery-fill" id="delivery-progress-bar" style="width: 45%;"></div>
+        </div>
+      </div>
+
+      <!-- Items List -->
+      <div class="cart-items-list" id="cart-items-list"></div>
+
+      <!-- Empty State -->
+      <div class="cart-empty" id="cart-empty-view">
+        <span class="empty-icon">🍲</span>
+        <h4>Your bag is empty</h4>
+        <p>Discover our slow-cooked specialties and add dishes to begin.</p>
+        <button class="btn btn-green-fill btn-sm" id="btn-explore-from-cart">Explore Menu</button>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="drawer-footer" id="cart-drawer-footer">
+        <!-- Swiggy-Style Coupon Box -->
+        <div class="cart-coupon-box" id="cart-coupon-box">
+          <div class="coupon-input-wrap">
+            <span class="coupon-input-icon">🏷️</span>
+            <input type="text" id="input-cart-coupon" placeholder="Enter coupon (e.g. FEAST50)" />
+            <button type="button" class="btn-apply-coupon" id="btn-apply-coupon">Apply</button>
+          </div>
+          <div class="coupon-active-pill" id="coupon-active-pill" style="display:none;">
+            <span class="coupon-pill-text" id="coupon-pill-text">FEAST50 (-₹150)</span>
+            <button type="button" class="coupon-remove-btn" id="btn-remove-coupon">&times;</button>
+          </div>
+          <small class="coupon-feedback" id="coupon-feedback" style="display:none;"></small>
+        </div>
+
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="summary-line discount-line" id="cart-discount-row" style="display:none;">
+          <span style="color:var(--color-shockingly-green);">Coupon Savings</span>
+          <span class="green-text" id="cart-discount">-₹0</span>
+        </div>
+        <div class="summary-line">
+          <span>Handi Packaging</span>
+          <span class="green-text">FREE</span>
+        </div>
+        <div class="summary-line">
+          <span>Est. Delivery</span>
+          <span id="cart-delivery-fee">₹45</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-line total-line">
+          <span>Total</span>
+          <span class="total-val" id="cart-total">₹0</span>
+        </div>
+
+        <button class="btn btn-green-fill btn-full" id="btn-proceed-checkout">
+          <span>Proceed to Location &amp; Payment</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ INTERACTIVE CHECKOUT & MAP MODAL ═══════ -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-window checkout-window">
+      <button class="modal-close-btn" id="checkout-close-btn" aria-label="Close checkout">&times;</button>
+      
+      <!-- Checkout Wizard Header -->
+      <div class="checkout-header">
+        <div class="checkout-step-indicator">
+          <span class="step-pill active" id="step-pill-1">1. Delivery Location</span>
+          <span class="step-arrow">&rarr;</span>
+          <span class="step-pill" id="step-pill-2">2. UPI QR Payment</span>
+        </div>
+        <h2 id="checkout-title">Select Delivery Location on Map</h2>
+        <p id="checkout-subtitle">Drag marker or tap map to pin your exact address in Mumbai</p>
+      </div>
+
+      <!-- STEP 1: Interactive Map & Address -->
+      <div class="checkout-step" id="checkout-step-1">
+        <!-- Leaflet Map Container -->
+        <div class="map-wrapper">
+          <div id="checkout-map" class="checkout-map"></div>
+          <div class="map-overlay-badge">
+            <span class="map-hub-dot"></span>
+            <span>Cloud Kitchen Origin: Bandra West HQ</span>
+          </div>
+        </div>
+
+        <!-- Telemetry & Distance Row -->
+        <div class="distance-metric-row">
+          <div class="dist-stat">
+            <span class="dist-label">DISTANCE FROM KITCHEN</span>
+            <span class="dist-val" id="calc-distance">3.2 km</span>
+          </div>
+          <div class="dist-stat">
+            <span class="dist-label">DELIVERY FEE</span>
+            <span class="dist-val green" id="calc-fee">₹45</span>
+          </div>
+          <div class="dist-stat">
+            <span class="dist-label">EST. DISPATCH TIME</span>
+            <span class="dist-val" id="calc-eta">22 mins</span>
+          </div>
+        </div>
+
+        <!-- Quick Neighborhood Chips -->
+        <div class="quick-locations-row">
+          <span class="quick-loc-label">Presets:</span>
+          <button type="button" class="loc-chip" data-lat="19.0596" data-lng="72.8295" data-name="Bandra West">Bandra West</button>
+          <button type="button" class="loc-chip" data-lat="19.1025" data-lng="72.8270" data-name="Juhu">Juhu</button>
+          <button type="button" class="loc-chip" data-lat="19.0657" data-lng="72.8642" data-name="BKC">BKC</button>
+          <button type="button" class="loc-chip" data-lat="19.0178" data-lng="72.8478" data-name="Dadar / Worli">Worli</button>
+          <button type="button" class="loc-chip" data-lat="19.1197" data-lng="72.8464" data-name="Andheri West">Andheri</button>
+        </div>
+
+        <form id="address-form" class="address-form">
+          <div class="form-grid">
+            <div class="form-field full">
+              <label for="input-address">Delivery Address (Auto-Updated from Map)</label>
+              <input type="text" id="input-address" value="Pali Hill, Bandra West, Mumbai 400050" required />
+            </div>
+            <div class="form-field">
+              <label for="input-apt">Apartment / Flat / Floor</label>
+              <input type="text" id="input-apt" placeholder="e.g. 402, Sea Crest Towers" required />
+            </div>
+            <div class="form-field">
+              <label for="input-phone">Contact Phone for Delivery Rider</label>
+              <input type="tel" id="input-phone" placeholder="+91 98765 43210" required />
+            </div>
+          </div>
+
+          <div class="checkout-actions">
+            <button type="button" class="btn btn-green-fill btn-full" id="btn-to-payment">
+              <span>Proceed to UPI QR Payment</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 2: UPI QR Code Payment -->
+      <div class="checkout-step" id="checkout-step-2" style="display:none;">
+        <div class="upi-payment-layout">
+          <div class="upi-qr-card">
+            <div class="qr-box">
+              <canvas id="upi-qr-canvas"></canvas>
+            </div>
+            <span class="qr-helper">Scan with Google Pay, PhonePe, Paytm, or BHIM</span>
+          </div>
+
+          <div class="upi-details-card">
+            <div class="upi-amount-banner">
+              <span>Amount to Pay</span>
+              <h3 id="upi-pay-amount">₹0</h3>
+            </div>
+
+            <!-- UPI ID display and customizer -->
+            <div class="upi-id-box">
+              <label for="input-merchant-upi">Merchant UPI ID:</label>
+              <div class="upi-copy-row">
+                <input type="text" id="input-merchant-upi" value="kaif@upi" />
+                <button type="button" class="btn btn-green-outline btn-sm" id="btn-copy-upi">Copy</button>
+              </div>
+              <small class="upi-hint">You can change the UPI ID above to your personal UPI ID.</small>
+            </div>
+
+            <div class="payment-order-summary">
+              <div class="summary-line">
+                <span>Total Items</span>
+                <span id="upi-item-count">0 items</span>
+              </div>
+              <div class="summary-line">
+                <span>Delivery Distance</span>
+                <span id="upi-summary-dist">3.2 km</span>
+              </div>
+              <div class="summary-line">
+                <span>Delivery Fee</span>
+                <span id="upi-summary-fee">₹45</span>
+              </div>
+              <div class="summary-line discount-line" id="upi-discount-row" style="display:none;">
+                <span style="color:var(--color-shockingly-green);">Coupon Savings</span>
+                <span class="green-text" id="upi-summary-discount">-₹0</span>
+              </div>
+            </div>
+
+            <div class="form-field" style="margin-bottom:0.8rem;">
+              <label for="input-customer-phone">Customer WhatsApp Phone (for Live Receipt)</label>
+              <input type="tel" id="input-customer-phone" placeholder="+91 98765 43210" value="+919876543210" required />
+            </div>
+
+            <div class="form-field" style="margin-bottom:1rem;">
+              <label for="input-upi-utr">UPI UTR / 12-Digit Ref ID (Optional)</label>
+              <input type="text" id="input-upi-utr" placeholder="e.g. 429184029182 (from GPay / PhonePe / Paytm)" />
+            </div>
+
+            <!-- Verification Button -->
+            <div class="payment-verify-actions">
+              <button type="button" class="btn btn-green-fill btn-full" id="btn-verify-upi">
+                <span id="btn-verify-text">⚡ I Have Paid &bull; Verify &amp; Launch Live Tracking</span>
+                <div class="btn-spinner" id="verify-spinner" style="display:none;"></div>
+              </button>
+
+              <!-- WhatsApp Alert Box (shown upon verification) -->
+              <div class="whatsapp-alert-box" id="whatsapp-alert-box" style="display:none;margin-top:0.8rem;background:rgba(37,211,102,0.12);border:1px solid #25D366;border-radius:12px;padding:1rem;text-align:center;">
+                <div style="font-size:1.6rem;margin-bottom:0.3rem;">💬</div>
+                <h4 style="color:#25D366;font-size:0.95rem;margin-bottom:0.3rem;">Order Verified &amp; Saved!</h4>
+                <p style="font-size:0.78rem;color:#ddd;margin-bottom:0.8rem;" id="whatsapp-alert-text">Automated receipt with live GPS tracking link is ready.</p>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-green-fill btn-full" id="btn-open-whatsapp" style="background:#25D366;border-color:#25D366;color:#0e100f;font-weight:700;font-size:0.85rem;">
+                  <span>💬 Open WhatsApp Order Receipt</span>
+                </a>
+              </div>
+
+              <button type="button" class="btn btn-ghost-stroke btn-full btn-sm" id="btn-back-to-address" style="margin-top:0.5rem;">
+                &larr; Back to Location Map
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ LIVE GPS DRIVER TRACKING MODAL ═══════ -->
+  <div class="modal-overlay" id="tracking-modal">
+    <div class="modal-window tracking-window">
+      <button class="modal-close-btn" id="tracking-close-btn" aria-label="Close tracking">&times;</button>
+      
+      <div class="tracking-header">
+        <div class="tracking-live-tag">
+          <span class="pill-dot"></span>
+          <span>LIVE SATELLITE GPS &bull; THERMAL POD TRANSIT</span>
+        </div>
+        <h2>Real-Time Order Tracking</h2>
+      </div>
+
+      <!-- Live GPS Map -->
+      <div class="tracking-map-container">
+        <div id="tracking-map" class="tracking-map"></div>
+        <div class="tracking-map-overlay-stat" id="tracking-eta-pill">
+          ETA: 18 mins &bull; 34 km/h &bull; 68°C Core
+        </div>
+      </div>
+
+      <!-- Driver & Order Telemetry -->
+      <div class="tracking-telemetry-body">
+        <!-- Order Items & Receipt Breakdown -->
+        <div class="tracking-order-summary-card" id="tracking-order-summary" style="background:var(--color-just-black);border:1px solid var(--color-surface25);padding:1rem 1.2rem;border-radius:var(--radius-card);margin-bottom:1.2rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
+            <div>
+              <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--color-shockingly-green);" id="tracking-order-num">#ORD-LIVE</span>
+              <span style="font-size:0.75rem;color:var(--color-surface50);margin-left:0.5rem;" id="tracking-dest-address">Delivery: Bandra</span>
+            </div>
+            <span class="badge" style="background:rgba(10,228,72,0.15);color:var(--color-shockingly-green);font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:12px;font-family:var(--font-mono);" id="tracking-order-status">PAID • IN TRANSIT</span>
+          </div>
+          <div id="tracking-items-list" style="font-size:0.82rem;color:var(--color-surface75);margin-bottom:0.6rem;line-height:1.4;"></div>
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:0.92rem;border-top:1px solid var(--color-surface25);padding-top:0.5rem;">
+            <span>Total Paid (incl. Delivery):</span>
+            <span id="tracking-total-amount" style="color:var(--color-shockingly-green);">₹0</span>
+          </div>
+          <div style="margin-top:0.7rem;">
+            <a href="#" target="_blank" rel="noopener noreferrer" id="tracking-whatsapp-btn" class="btn btn-ghost-stroke btn-sm btn-full" style="border-color:#25D366;color:#25D366;font-size:0.8rem;">
+              <span>💬 Open Order Receipt &amp; Live Tracking on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="driver-card">
+          <div class="driver-avatar">🛵</div>
+          <div class="driver-details">
+            <h4>Aakash Sharma <span class="driver-rating">★ 4.95</span></h4>
+            <p>Electric Thermal Pod &bull; MH 02 CP 4921</p>
+          </div>
+          <div class="driver-call">
+            <a href="tel:+919876543210" class="btn btn-green-outline btn-sm">📞 Call Rider</a>
+          </div>
+        </div>
+
+        <!-- 4-Stage Live Progress Pipeline -->
+        <div class="pipeline-row">
+          <div class="pipeline-step completed">
+            <span class="pip-icon">✓</span>
+            <span class="pip-name">Order Plated</span>
+          </div>
+          <div class="pipeline-step completed">
+            <span class="pip-icon">✓</span>
+            <span class="pip-name">Handi Sealed (140°C)</span>
+          </div>
+          <div class="pipeline-step active">
+            <span class="pip-icon">🛵</span>
+            <span class="pip-name">Out for Delivery</span>
+          </div>
+          <div class="pipeline-step" id="pipeline-final-step">
+            <span class="pip-icon">🏠</span>
+            <span class="pip-name">Doorstep Arrival</span>
+          </div>
+        </div>
+
+        <!-- Rider Acceleration & Simulation Controls -->
+        <div class="simulation-controls-row">
+          <button class="btn btn-ghost-stroke btn-sm" id="btn-step-driver">
+            <span>⏩ Simulate Rider Moving Ahead</span>
+          </button>
+          <span class="sim-note">Live GPS updates every 2 seconds automatically</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ DISH DETAIL MODAL ═══════ -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-img-container">
+        <img src="" alt="" id="modal-img" />
+      </div>
+      <div class="modal-body-content">
+        <div class="modal-badge-row">
+          <span class="modal-badge" id="modal-availability">Available</span>
+          <span class="modal-spice" id="modal-heat">🌶️ Medium</span>
+        </div>
+        <h2 id="modal-name">Dish Name</h2>
+        <p class="modal-description" id="modal-desc"></p>
+        
+        <div class="modal-action-bar">
+          <span class="modal-price-tag" id="modal-price">₹0</span>
+          <button class="btn btn-green-fill" id="modal-order-btn">
+            <span>Add to Feast Bag</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ AUTH MODAL ═══════ -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-window auth-window">
+      <button class="modal-close-btn" id="auth-modal-close" aria-label="Close auth modal">&times;</button>
+      <div class="auth-header">
+        <div class="auth-icon-box">⚡</div>
+        <h2 id="auth-title">Welcome to Kaif's Club</h2>
+        <p id="auth-subtitle">Sign in to manage your orders</p>
+      </div>
+
+      <form id="auth-form" class="auth-form-box">
+        <div class="form-field" id="auth-name-group" style="display:none;">
+          <label for="auth-name">Full Name</label>
+          <input type="text" id="auth-name" placeholder="Aryan Malhotra" autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="auth-email">Email Address</label>
+          <input type="email" id="auth-email" placeholder="you@domain.com" autocomplete="email" required />
+        </div>
+        <div class="form-field">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+
+        <div class="auth-alert error" id="auth-error" style="display:none;"></div>
+        <div class="auth-alert success" id="auth-success" style="display:none;"></div>
+
+        <button type="submit" class="btn btn-green-fill btn-full" id="auth-submit-btn">
+          <span id="auth-submit-text">Sign In</span>
+          <div class="btn-spinner" id="auth-spinner" style="display:none;"></div>
+        </button>
+      </form>
+
+      <div class="auth-divider">
+        <span>OR</span>
+      </div>
+
+      <!-- Google Sign In Button -->
+      <button type="button" class="btn btn-google-login btn-full" id="btn-google-login">
+        <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="auth-switch-row">
+        <span id="auth-switch-text">Don't have an account? <a href="#" id="auth-switch-link">Join Privilege Club</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ RESTAURANT LOCATION & SETTINGS MODAL ═══════ -->
+  <div class="modal-overlay" id="kitchen-settings-modal">
+    <div class="modal-window checkout-window">
+      <button class="modal-close-btn" id="kitchen-settings-close" aria-label="Close settings">&times;</button>
+      <div class="checkout-header">
+        <div class="hero-pill-badge" style="margin-bottom:0.5rem;">
+          <span class="pill-dot"></span>
+          <span class="pill-text">RESTAURANT OWNER CONTROL</span>
+        </div>
+        <h2>Connect Maps &amp; Restaurant Location</h2>
+        <p>Configure your kitchen origin coordinates, merchant UPI ID, and dispatch phone so distance calculation and live driver GPS start from your actual kitchen.</p>
+      </div>
+
+      <form id="kitchen-settings-form">
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="setting-kitchen-name">Restaurant / Cloud Kitchen Name</label>
+            <input type="text" id="setting-kitchen-name" value="Kaif's Cloud Kitchen HQ" required />
+          </div>
+          <div class="form-field full">
+            <label for="setting-kitchen-address">Kitchen Address / Landmarking</label>
+            <input type="text" id="setting-kitchen-address" value="Plot 14, Pali Naka, Bandra West, Mumbai 400050" required />
+          </div>
+          <div class="form-field">
+            <label for="setting-kitchen-lat">Kitchen Latitude (GPS)</label>
+            <input type="number" step="any" id="setting-kitchen-lat" value="19.0596" required />
+          </div>
+          <div class="form-field">
+            <label for="setting-kitchen-lng">Kitchen Longitude (GPS)</label>
+            <input type="number" step="any" id="setting-kitchen-lng" value="72.8295" required />
+          </div>
+          <div class="form-field full">
+            <button type="button" class="btn btn-ghost-stroke btn-full btn-sm" id="btn-detect-kitchen-gps" style="border-style:dashed;">
+              🎯 Pin My Device's Current GPS as Kitchen Location
+            </button>
+          </div>
+          <div class="form-field">
+            <label for="setting-merchant-upi">Merchant UPI ID (for QR Code)</label>
+            <input type="text" id="setting-merchant-upi" value="kaif@upi" required />
+          </div>
+          <div class="form-field">
+            <label for="setting-owner-phone">Kitchen Alert WhatsApp Number</label>
+            <input type="tel" id="setting-owner-phone" value="+919876543210" required />
+          </div>
+        </div>
+
+        <div class="quick-locations-row">
+          <span class="quick-loc-label">Preset Hubs:</span>
+          <button type="button" class="loc-chip kitchen-preset" data-lat="19.0596" data-lng="72.8295" data-name="Bandra West HQ, Mumbai">Bandra West</button>
+          <button type="button" class="loc-chip kitchen-preset" data-lat="19.1197" data-lng="72.8464" data-name="Andheri West Kitchen, Mumbai">Andheri West</button>
+          <button type="button" class="loc-chip kitchen-preset" data-lat="19.0178" data-lng="72.8478" data-name="Worli Cloud Kitchen, Mumbai">Worli</button>
+          <button type="button" class="loc-chip kitchen-preset" data-lat="28.6315" data-lng="77.2167" data-name="Connaught Place, New Delhi">Delhi CP</button>
+          <button type="button" class="loc-chip kitchen-preset" data-lat="12.9352" data-lng="77.6245" data-name="Koramangala, Bengaluru">Bengaluru</button>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <button type="submit" class="btn btn-green-fill btn-full">
+            <span>💾 Save Kitchen Location &amp; Update Maps</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════ ADMIN MISSION CONTROL MODAL ═══════ -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="modal-window admin-window">
+      <button class="modal-close-btn" id="admin-close-btn" aria-label="Close admin modal">&times;</button>
+      
+      <div class="admin-header">
+        <div class="hero-pill-badge" style="margin-bottom:0.4rem;">
+          <span class="pill-dot"></span>
+          <span class="pill-text">CLOUD KITCHEN MISSION CONTROL</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+          <h2>Kitchen Operations &amp; Admin Panel</h2>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-admin-refresh">🔄 Refresh Stream</button>
+        </div>
+      </div>
+
+      <!-- Admin KPI Tiles -->
+      <div class="admin-kpi-row">
+        <div class="kpi-card">
+          <span class="kpi-label">TOTAL ORDERS</span>
+          <span class="kpi-val" id="admin-kpi-orders">0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">TOTAL REVENUE</span>
+          <span class="kpi-val green" id="admin-kpi-revenue">₹0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">DISPATCH RIDERS</span>
+          <span class="kpi-val" id="admin-kpi-riders">1 Active</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">ACTIVE PROMOS</span>
+          <span class="kpi-val" id="admin-kpi-coupons">5</span>
+        </div>
+      </div>
+
+      <!-- Admin Navigation Tabs -->
+      <div class="admin-tabs-row">
+        <button type="button" class="admin-tab-btn active" data-tab="orders">📦 Live Orders Pipeline</button>
+        <button type="button" class="admin-tab-btn" data-tab="menu">🍲 Dishes &amp; Stock</button>
+        <button type="button" class="admin-tab-btn" data-tab="coupons">🎟️ Promo Codes</button>
+      </div>
+
+      <!-- Tab 1: Live Orders Stream -->
+      <div class="admin-tab-content active" id="admin-tab-orders">
+        <div class="admin-orders-list" id="admin-orders-list">
+          <div style="text-align:center;padding:2rem;color:var(--color-surface50);">Loading live orders stream...</div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Dishes & Stock -->
+      <div class="admin-tab-content" id="admin-tab-menu" style="display:none;">
+        <div class="admin-menu-list" id="admin-menu-list"></div>
+      </div>
+
+      <!-- Tab 3: Coupons & Deals -->
+      <div class="admin-tab-content" id="admin-tab-coupons" style="display:none;">
+        <div class="admin-coupon-create-card">
+          <h4 style="margin-bottom:0.8rem;color:#fff;font-size:0.95rem;">Create New Promo Code</h4>
+          <form id="admin-coupon-form" class="form-grid">
+            <div class="form-field">
+              <label for="adm-c-code">Coupon Code</label>
+              <input type="text" id="adm-c-code" placeholder="e.g. VIP20" required />
+            </div>
+            <div class="form-field">
+              <label for="adm-c-type">Type</label>
+              <select id="adm-c-type" style="background:#0e100f;color:#fff;border:1px solid #333;padding:0.75rem;border-radius:6px;width:100%;">
+                <option value="PERCENTAGE">Percentage (%)</option>
+                <option value="FLAT">Flat Amount (₹)</option>
+                <option value="FREE_DELIVERY">Free Delivery</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="adm-c-val">Discount Value</label>
+              <input type="number" id="adm-c-val" placeholder="20" required />
+            </div>
+            <div class="form-field">
+              <label for="adm-c-min">Min Order (₹)</label>
+              <input type="number" id="adm-c-min" placeholder="299" value="299" />
+            </div>
+            <div class="form-field full">
+              <button type="submit" class="btn btn-green-fill btn-sm btn-full">Create &amp; Publish Promo Code</button>
+            </div>
+          </form>
+        </div>
+        <div class="admin-coupons-table-wrap" id="admin-coupons-table" style="margin-top:1.2rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ TOAST CONTAINER ═══════ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

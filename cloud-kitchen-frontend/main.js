@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import L from 'leaflet';
 import QRCode from 'qrcode';
+import { auth, googleProvider, signInWithPopup, isFirebaseConfigured } from './firebase.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1880,19 +1881,40 @@ function initGoogleAuth() {
   if (!btnGoogle) return;
 
   btnGoogle.addEventListener('click', async () => {
-    const defaultEmail = currentUser ? currentUser.email : 'kaif@cloudkitchen.com';
-    const emailPrompt = prompt('Sign in with Google Account:\nEnter Google Email (use "kaif@cloudkitchen.com" or "admin@kaifkitchen.com" for Admin access):', defaultEmail);
-    if (!emailPrompt) return;
-
     try {
-      showToast('Authenticating with Google Identity Services...', 'success');
-      const googleName = emailPrompt.split('@')[0].replace(/[._]/g, ' ').toUpperCase();
-      const res = await apiFetch('/auth/google', {
-        method: 'POST',
-        body: JSON.stringify({
+      let googleUser = null;
+
+      if (isFirebaseConfigured && auth && googleProvider) {
+        showToast('Opening Google Sign-In...', 'info');
+        const userCred = await signInWithPopup(auth, googleProvider);
+        googleUser = {
+          email: userCred.user.email,
+          name: userCred.user.displayName || userCred.user.email.split('@')[0],
+          avatarUrl: userCred.user.photoURL,
+        };
+      } else {
+        // Fallback if Firebase environment variables are not yet configured
+        const defaultEmail = currentUser ? currentUser.email : 'kaif@cloudkitchen.com';
+        const emailPrompt = prompt(
+          'Firebase is not yet configured with API keys in .env.\n\nEnter Google Email to simulate login (or add VITE_FIREBASE_* keys):',
+          defaultEmail
+        );
+        if (!emailPrompt) return;
+        const googleName = emailPrompt.split('@')[0].replace(/[._]/g, ' ').toUpperCase();
+        googleUser = {
           email: emailPrompt.trim(),
           name: googleName,
           avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(googleName)}`,
+        };
+      }
+
+      showToast('Authenticating with Cloud Kitchen...', 'info');
+      const res = await apiFetch('/auth/google', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: googleUser.email,
+          name: googleUser.name,
+          avatarUrl: googleUser.avatarUrl,
         }),
       });
 
@@ -1905,7 +1927,14 @@ function initGoogleAuth() {
       closeAuthModal();
       showToast(`Welcome, ${currentUser.name}! Signed in via Google.`);
     } catch (err) {
-      showToast(err.message || 'Google authentication failed', 'error');
+      console.error('Google Sign-In Error:', err);
+      if (err.code === 'auth/popup-closed-by-user') {
+        showToast('Google sign-in popup closed', 'warning');
+      } else if (err.code === 'auth/cancelled-popup-request') {
+        // Ignored duplicate popup requests
+      } else {
+        showToast(err.message || 'Google authentication failed', 'error');
+      }
     }
   });
 }
